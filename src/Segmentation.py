@@ -211,4 +211,7 @@ class Segmentation:
             result_string += ', '.join(map(str, edges_values)) + '\n'
 
         image[~mask] = 0
+        for center in centers:
+            x, y = center
+            cv2.circle(image, (x, y), 5, (0, 255, 0), -1)  # Draw a green point
         return result_string, image
