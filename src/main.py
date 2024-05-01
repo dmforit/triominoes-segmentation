@@ -55,8 +55,14 @@ class CenteredButtonsApp(QMainWindow):
         self.process_button.clicked.connect(self.process_image)
         self.process_button.setFixedSize(180, 40)
 
+        self.textfile_button = QPushButton("Получить текстовый файл")
+        self.textfile_button.clicked.connect(self.get_file)
+        self.textfile_button.setFixedSize(180, 40)
+
         self.buttons_layout = QVBoxLayout()
         self.buttons_layout.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        self.buttons_layout.addWidget(
+            self.textfile_button, alignment=Qt.AlignmentFlag.AlignCenter)
         self.buttons_layout.addWidget(self.process_button,
                                       alignment=Qt.AlignmentFlag.AlignCenter)
         self.buttons_layout.addWidget(self.splitter,
@@ -74,6 +80,10 @@ class CenteredButtonsApp(QMainWindow):
         widget = QWidget()
         widget.setLayout(self.layout)
         self.setCentralWidget(widget)
+
+    def get_file(self):
+        with open('output.txt', 'w') as out:
+            out.write(self.result_str.text())
 
     def process_image(self):
         if self.filename is None or self.filename == '':
